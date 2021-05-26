@@ -1,20 +1,30 @@
 defmodule TuringWeb.CountLive do
   use TuringWeb, :live_view
-  
-  # %Socket{assigns: %{live_action: :index}}
+  alias Turing.Counter
 
-  def mount(_params, _session, socket) do
-    {:ok, assign(socket, count: 0)}
+  # socket is actually this struct: %Socket{assigns: %{live_action: :index}}
+
+  # Constructor function: instantiates new socket
+  def mount(%{"value" => value}, _session, socket) do
+    {:ok, assign(socket, count: Counter.new(value))}
   end
 
+  # %Socket{assigns: %{live_action: :index, count: 42}}
+  #  Reducer function
+  def handle_event("inc", _, socket) do
+    {:noreply, inc(socket)}
+  end
+
+  def inc(socket) do
+    assign socket, count: Counter.increment(socket.assigns.count)
+  end
+
+  #          function
   def render(assigns) do
     ~L"""
-    <h1>Hello. Your count is <%= @count %>.</h1>
+    <h1><%= Counter.show(@count) %></h1>
     <button phx-click="inc">Increment</button>
     """
   end
 
-  def handle_event("inc", _, socket) do
-    {:noreply, assign(socket, count: 1)}
-  end
 end
