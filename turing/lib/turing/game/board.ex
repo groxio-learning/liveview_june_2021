@@ -2,7 +2,7 @@ defmodule Turing.Game.Board do
 
   defstruct [answer: [1, 2, 3, 4], moves: []]
 
-  def new(answer) do
+  def new(answer \\ [1, 2, 3, 4]) do
     __struct__(answer: answer)
   end
 
