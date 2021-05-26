@@ -1,10 +1,14 @@
 defmodule TuringWeb.PageLive do
   use TuringWeb, :live_view
+  
+  # %Socket{assigns: %{live_action: :index}}
 
   @impl true
   def mount(_params, _session, socket) do
     {:ok, assign(socket, query: "", results: %{})}
   end
+
+  # %Socket{assigns: %{live_action: :index, query: "", results: %{}}}
 
   @impl true
   def handle_event("suggest", %{"q" => query}, socket) do
