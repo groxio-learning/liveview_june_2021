@@ -10,7 +10,7 @@ defmodule Turing.Game.Move do
     balls ++ [ball]
   end
 
-  def remove([_, _, _, _] = balls), do: balls
+  def remove([] = balls), do: balls
 
   def remove(balls) do
     List.delete_at(balls, -1)
