@@ -1,11 +1,5 @@
 defmodule Turing.Game.Score do
 
-  # def answer do
-  #   (1..10)
-  #   |> Enum.shuffle
-  #   |> Enum.take(4)
-  # end
-
   def new(guess, answer) do
     %{reds: correct_answers(guess, answer), whites: almost_correct_answers(guess, answer)}
   end
