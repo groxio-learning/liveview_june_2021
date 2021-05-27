@@ -19,8 +19,16 @@ defmodule Turing.Game.Board do
   end
 
   defp build_status(board) do
-    board
+    cond do
+      board.answer == List.first(board.moves) ->
+        :won
+      length(board.moves) < 10 ->
+        :playing
+      true ->
+        :lost
+    end
   end
+
 #make_move = fn board, move -> %{board| moves: [move|board.moves]} end
 #new = fn answer -> %{answer: answer, moves: []} end
 end

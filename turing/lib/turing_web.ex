@@ -77,6 +77,7 @@ defmodule TuringWeb do
   end
 
   defp view_helpers do
+    # quote means drop the code as its written
     quote do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
@@ -96,6 +97,9 @@ defmodule TuringWeb do
   @doc """
   When used, dispatch to the appropriate controller/view/etc.
   """
+  # This Macro creates code at compile time
+  # It uses TuringWeb, which == :live_view
+  # empty list is the arguments
   defmacro __using__(which) when is_atom(which) do
     apply(__MODULE__, which, [])
   end
