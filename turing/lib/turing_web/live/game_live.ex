@@ -1,7 +1,10 @@
 defmodule TuringWeb.GameLive do
   use TuringWeb, :live_view
+  use Surface.Component
+
   alias Turing.Game
   alias Turing.Game.{Board, Move}
+  alias TuringWeb.{Turn, Ball}
 
   # socket is actually this struct: %Socket{assigns: %{live_action: :index}}
 
@@ -44,29 +47,19 @@ defmodule TuringWeb.GameLive do
   def render_guess(guess), do: inspect guess
 
   def render(assigns) do
-    ~L"""
+    ~H"""
     <h1>Turing Game</h1>
-    <%= for ball <- 1..8 do %>
-      <button phx-click="choose" phx-value-ball="<%= ball %>"><%= ball %></button>
-    <% end %>
-    <button phx-click="guess">Guess</button>
-    <pre>
-      <%= for row <- @game.rows do %>
-        <%= render_guess(row.guess) %><%= render_score(row.score) %>
-      <% end %>
-    </pre>
-    <pre><%= inspect @game.status %></pre>
-    <pre><%= inspect @game %></pre>
-    <pre><%= inspect @move %></pre>
+    <Turn/>
+    <Ball name = "1"/>
     """
   end
 
   def handle_event("guess", _, socket) do
     {:noreply, socket |> make_move() |> show() |> build_move()}
-  end 
+  end
 
   def handle_event("choose", %{"ball" => ball}, socket) do
     {:noreply, socket |> choose(ball)}
-  end 
+  end
 
 end
