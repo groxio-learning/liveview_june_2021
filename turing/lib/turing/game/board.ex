@@ -1,5 +1,5 @@
 defmodule Turing.Game.Board do
-
+  alias Turing.Game.Score
   defstruct [answer: [1, 2, 3, 4], moves: []]
 
   def new(answer \\ [1, 2, 3, 4]) do
@@ -15,12 +15,23 @@ defmodule Turing.Game.Board do
   end
 
   defp build_rows(board) do
-    board
+    board.moves
+    |> Enum.map(fn guess ->
+        %{score: Score.new(guess, board.answer), guess: guess}
+    end)
   end
 
   defp build_status(board) do
-    board
+    cond do
+      board.answer == List.first(board.moves) ->
+        :won
+      length(board.moves) < 10 ->
+        :playing
+      true ->
+        :lost
+    end
   end
+
 #make_move = fn board, move -> %{board| moves: [move|board.moves]} end
 #new = fn answer -> %{answer: answer, moves: []} end
 end
