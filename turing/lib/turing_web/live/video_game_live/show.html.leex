@@ -1,0 +1,27 @@
+<h1>Show Video game</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, TuringWeb.VideoGameLive.FormComponent,
+    id: @video_game.id,
+    title: @page_title,
+    action: @live_action,
+    video_game: @video_game,
+    return_to: Routes.video_game_show_path(@socket, :show, @video_game) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @video_game.name %>
+  </li>
+
+  <li>
+    <strong>Year:</strong>
+    <%= @video_game.year %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.video_game_show_path(@socket, :edit, @video_game), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.video_game_index_path(@socket, :index) %></span>
