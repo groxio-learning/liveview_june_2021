@@ -4,7 +4,7 @@ defmodule TuringWeb.GameLive do
 
   alias Turing.Game
   alias Turing.Game.{Board, Move}
-  alias TuringWeb.{Turn, Ball}
+  alias TuringWeb.{Turn, Ball, GameBoard, Guess}
 
   # socket is actually this struct: %Socket{assigns: %{live_action: :index}}
 
@@ -49,8 +49,17 @@ defmodule TuringWeb.GameLive do
   def render(assigns) do
     ~H"""
     <h1>Turing Game</h1>
+    <GameBoard game = {{ assigns.game }} />
+    <Guess balls = {{ assigns.move }} />
     <Turn/>
     <Ball name = "1"/>
+    <Ball name = "2"/>
+    <Ball name = "3"/>
+    <Ball name = "4"/>
+    <Ball name = "5"/>
+    <Ball name = "6"/>
+    <Ball name = "7"/>
+    <Ball name = "8"/>
     """
   end
 
