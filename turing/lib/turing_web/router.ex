@@ -17,6 +17,13 @@ defmodule TuringWeb.Router do
   scope "/", TuringWeb do
     pipe_through :browser
 
+    live "/video_games", VideoGameLive.Index, :index
+    live "/video_games/new", VideoGameLive.Index, :new
+    live "/video_games/:id/edit", VideoGameLive.Index, :edit
+
+    live "/video_games/:id", VideoGameLive.Show, :show
+    live "/video_games/:id/show/edit", VideoGameLive.Show, :edit
+
     live "/game", GameLive
     live "/counter/:value", CountLive, :index
     live "/", PageLive, :index

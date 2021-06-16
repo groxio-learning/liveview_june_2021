@@ -1,0 +1,37 @@
+<h1>Listing Video games</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, TuringWeb.VideoGameLive.FormComponent,
+    id: @video_game.id || :new,
+    title: @page_title,
+    action: @live_action,
+    video_game: @video_game,
+    return_to: Routes.video_game_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Year</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="video_games">
+    <%= for video_game <- @video_games do %>
+      <tr id="video_game-<%= video_game.id %>">
+        <td><%= video_game.name %></td>
+        <td><%= video_game.year %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.video_game_show_path(@socket, :show, video_game) %></span>
+          <span><%= live_patch "Edit", to: Routes.video_game_index_path(@socket, :edit, video_game) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: video_game.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<p><%= @live_action %></p>
+<span><%= live_patch "New Video game", to: Routes.video_game_index_path(@socket, :new) %></span>
